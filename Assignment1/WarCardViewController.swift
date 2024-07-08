@@ -1,7 +1,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WarCardViewController: UIViewController {
     
     // UI elements
     @IBOutlet weak var player1ScoreLabel: UILabel!
@@ -9,10 +9,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var player1CardImageView: UIImageView!
     @IBOutlet weak var player2CardImageView: UIImageView!
     @IBOutlet weak var controlButton: UIButton!
-    
-    @IBOutlet weak var winnerLabel: UILabel!
-    @IBOutlet weak var winnerScoreLabel: UILabel!
-    @IBOutlet weak var backToMenuButton: UIButton!
+
     
     // Game manager and ticker for game state management
     var gameManager: GameManager
@@ -35,12 +32,6 @@ class ViewController: UIViewController {
         // Set initial scores
           player1ScoreLabel.text = "0"
           player2ScoreLabel.text = "0"
-          winnerLabel.isHidden = true
-          winnerScoreLabel.isHidden = true
-          backToMenuButton.isHidden = true
-          
-          // Set the title for the back to menu button
-          backToMenuButton.setTitle("Back to Menu", for: .normal)
           
           // Set initial card images to back of the card
           player1CardImageView.image = UIImage(named: "back")
@@ -106,10 +97,9 @@ class ViewController: UIViewController {
             print("State: Score Update - Scores updated, roundCount: \(roundCount)")
             
         case .checkEnd:
-            // Check if the game should end
             if roundCount >= maxRounds {
                 ticker.triggerGameEnd()
-                showWinner()
+                performSegue(withIdentifier: "showWinner", sender: self)
             } else {
                 ticker.updateStateTo(state.nextState)
             }
@@ -119,37 +109,6 @@ class ViewController: UIViewController {
             print("State: Game End")
         }
     }
-    
-    // Reset the game when the back to menu button is tapped
-    @IBAction func backToMenuTapped(_ sender: UIButton) {
-        // Reset the game state
-        roundCount = 0
-        player1ScoreLabel.text = "0"
-        player2ScoreLabel.text = "0"
-
-        // Hide winner labels and button
-        winnerLabel.isHidden = true
-        winnerScoreLabel.isHidden = true
-        backToMenuButton.isHidden = true
-
-        // Show game-related elements
-        player1ScoreLabel.isHidden = false
-        player2ScoreLabel.isHidden = false
-        player1CardImageView.isHidden = false
-        player2CardImageView.isHidden = false
-        controlButton.isHidden = false
-
-        // Reset card images to back
-        player1CardImageView.image = UIImage(named: "back")
-        player2CardImageView.image = UIImage(named: "back")
-
-        // Reset the ticker
-        ticker.stop()
-        ticker.start()
-
-        print("Back to Menu button tapped and game reset")
-    }
-    
     
     // Update scores based on the game result
     func updateScores(result: (winner: Int, player1Card: String, player2Card: String)) {
@@ -166,47 +125,35 @@ class ViewController: UIViewController {
         }
     }
     
-    // Show the winner and update the UI when the game ends
-    func showWinner() {
-        let player1Score = Int(player1ScoreLabel.text!)!
-        let player2Score = Int(player2ScoreLabel.text!)!
-
-        if player1Score > player2Score {
-            winnerLabel.text = "Winner: Gabi"
-        } else if player2Score > player1Score {
-            winnerLabel.text = "Winner: PC"
-        } else {
-            winnerLabel.text = "It's a Tie!"
-        }
-        winnerScoreLabel.text = "Score: \(max(player1Score, player2Score))"
-        winnerLabel.isHidden = false
-        winnerScoreLabel.isHidden = false
-        backToMenuButton.isHidden = false
-        
-        // Hide game-related elements
-        player1ScoreLabel.isHidden = true
-        player2ScoreLabel.isHidden = true
-        player1CardImageView.isHidden = true
-        player2CardImageView.isHidden = true
-        controlButton.isHidden = true
-        
-    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "showWinner" {
+             let destinationVC = segue.destination as! WinnerViewController
+             let player1Score = Int(player1ScoreLabel.text!)!
+             let player2Score = Int(player2ScoreLabel.text!)!
+             
+             if player1Score > player2Score {
+                 destinationVC.winnerText = "Winner: Gabi"
+             } else if player2Score > player1Score {
+                 destinationVC.winnerText = "Winner: PC"
+             } else {
+                 destinationVC.winnerText = "It's a Tie!"
+             }
+             destinationVC.scoreText = "Score: \(max(player1Score, player2Score))"
+         }
+     }
     
     func setConstraints() {
-           player1CardImageView.translatesAutoresizingMaskIntoConstraints = false
-           player2CardImageView.translatesAutoresizingMaskIntoConstraints = false
+        player1CardImageView.translatesAutoresizingMaskIntoConstraints = false
+        player2CardImageView.translatesAutoresizingMaskIntoConstraints = false
 
-           NSLayoutConstraint.activate([
-               // player1CardImageView constraints
-               player1CardImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-               player1CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+        NSLayoutConstraint.activate([
+            player1CardImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            player1CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
 
-               // player2CardImageView constraints
-               player2CardImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-               player2CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            player2CardImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            player2CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
 
-               // Spacing between player1CardImageView and player2CardImageView
-               player1CardImageView.trailingAnchor.constraint(equalTo: player2CardImageView.leadingAnchor, constant: -20)
-           ])
-       }
+            player2CardImageView.leadingAnchor.constraint(equalTo: player1CardImageView.trailingAnchor, constant: 20)
+        ])
+    }
 }
