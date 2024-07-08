@@ -1,15 +1,7 @@
 
 # iOS Card Game Application
 
-This project is an iOS application written in Swift, featuring a card game. The application includes multiple view controllers, a game manager, user authentication system, location requests, and shared preferences for storing user information.
-
-## Table of Contents
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [File Descriptions](#file-descriptions)
-- [Contributing](#contributing)
-- [License](#license)
+This project is an iOS application written in Swift, featuring a card game. The application includes multiple view controllers, a game manager, location requests, and shared preferences for storing user information.
 
 ## Features
 - **Login System**: Users can log in to the app using their credentials.
