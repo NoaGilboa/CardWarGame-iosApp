@@ -13,7 +13,7 @@ class GameManager {
     func createDeck() -> [String] {
         // Suits and ranks for the cards
         let suits = ["hearts", "diamonds", "clubs", "spades"]
-        let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+        let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "A"]
         var deck = [String]()
         
         // Nested loops to generate each card in the deck
@@ -50,7 +50,7 @@ class GameManager {
     // Function to compare the ranks of two cards
     func compareCards(card1: String, card2: String) -> Int {
         // Dictionary to map card ranks to their respective values
-        let cardRank = ["2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14]
+        let cardRank = ["2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, "13": 13, "A": 14]
         // Extract the rank of each card
         let rank1 = cardRank[String(card1.split(separator: "_")[0])]!
         let rank2 = cardRank[String(card2.split(separator: "_")[0])]!

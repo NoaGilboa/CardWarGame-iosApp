@@ -1,6 +1,6 @@
 import UIKit
 import CoreLocation
-
+import Foundation
 class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     // UI elements
@@ -23,10 +23,13 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         // Set up location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
+
         // Request location access
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        
+        
     }
     
     // Action for start game button
@@ -83,4 +86,5 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
 }

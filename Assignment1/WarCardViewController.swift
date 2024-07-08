@@ -1,4 +1,4 @@
-
+import Foundation
 import UIKit
 
 class WarCardViewController: UIViewController {
@@ -46,8 +46,6 @@ class WarCardViewController: UIViewController {
           // Set initial button image to stop
           controlButton.setImage(UIImage(named: "stop"), for: .normal)
           
-          // Ensure constraints are set
-          setConstraints()
           
           // Set the state change handler for the ticker
           ticker.stateChangeHandler = { [weak self] state in
@@ -138,7 +136,7 @@ class WarCardViewController: UIViewController {
                  let player2Score = Int(player2ScoreLabel.text!)!
                  
                  if player1Score > player2Score {
-                     destinationVC.winnerText = "Winner: Gabi"
+                     destinationVC.winnerText = "Winner: \(player2NameLabel.text!)"
                  } else if player2Score > player1Score {
                      destinationVC.winnerText = "Winner: PC"
                  } else {
@@ -148,18 +146,4 @@ class WarCardViewController: UIViewController {
              }
          }
         
-        func setConstraints() {
-            player1CardImageView.translatesAutoresizingMaskIntoConstraints = false
-            player2CardImageView.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                player1CardImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                player1CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-
-                player2CardImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-                player2CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-
-                player2CardImageView.leadingAnchor.constraint(equalTo: player1CardImageView.trailingAnchor, constant: 20)
-            ])
-        }
     }

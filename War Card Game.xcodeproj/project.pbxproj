@@ -458,6 +458,8 @@
 				DEVELOPMENT_TEAM = F9V87VN4SX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Assignment1/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show your current position in the game.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your current position in the game.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -485,6 +487,8 @@
 				DEVELOPMENT_TEAM = F9V87VN4SX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Assignment1/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to show your current position in the game.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show your current position in the game.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

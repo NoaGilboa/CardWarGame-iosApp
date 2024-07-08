@@ -21,6 +21,9 @@ class WinnerViewController: UIViewController {
     }
     
     @IBAction func backToMenuTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
+        if let navController = self.navigationController {
+            navController.popToRootViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }    }
 }
