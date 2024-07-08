@@ -9,7 +9,7 @@ class WarCardViewController: UIViewController {
     @IBOutlet weak var player1CardImageView: UIImageView!
     @IBOutlet weak var player2CardImageView: UIImageView!
     @IBOutlet weak var controlButton: UIButton!
-
+    @IBOutlet weak var timer: UILabel!
     
     // Game manager and ticker for game state management
     var gameManager: GameManager

@@ -1,7 +1,7 @@
 import UIKit
 import CoreLocation
 
-class LoginController: UIViewController, CLLocationManagerDelegate {
+class LoginViewController: UIViewController, CLLocationManagerDelegate {
     
     // UI elements
     @IBOutlet weak var instructionLabel: UILabel!

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZQY-pM-zAG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jvF-gz-QVr">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -12,7 +12,7 @@
         <!--Login-->
         <scene sceneID="Tdj-ik-zmy">
             <objects>
-                <viewController title="Login" id="jvF-gz-QVr" sceneMemberID="viewController">
+                <viewController title="Login" interactionActivityTrackingBaseName="LoginViewController.swift" id="jvF-gz-QVr" customClass="LoginViewController" customModule="War_Card_Game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GBj-4u-Ijz">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,18 +34,26 @@
                                 <rect key="frame" x="295" y="259" width="223" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="SatrtGame">
+                                <buttonConfiguration key="configuration" style="plain" title="Start Game">
                                     <backgroundConfiguration key="background">
                                         <color key="backgroundColor" systemColor="tintColor"/>
                                     </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                     <color key="baseForegroundColor" systemColor="systemGray6Color"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="startGameTapped:" destination="jvF-gz-QVr" eventType="touchUpInside" id="kVe-si-E5Q"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ymn-Ar-S7k"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="instructionLabel" destination="cpU-fV-xaN" id="cHe-3E-TvH"/>
+                        <outlet property="nameTextField" destination="fkx-j7-Q0Q" id="7x7-Nn-q1a"/>
+                        <outlet property="startGameButton" destination="pjk-FT-7qg" id="x7N-1c-WgQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PR7-3z-oD3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -54,12 +62,12 @@
         <!--Winner-->
         <scene sceneID="tf4-V1-TSb">
             <objects>
-                <viewController title="Winner" id="ZQY-pM-zAG" sceneMemberID="viewController">
+                <viewController title="Winner" id="ZQY-pM-zAG" customClass="WinnerViewController" customModule="War_Card_Game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KaX-eP-fLe">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="WinnerLable" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlS-vH-hrD" userLabel="winnerLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Winner: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlS-vH-hrD" userLabel="winnerLabel">
                                 <rect key="frame" x="272" y="20" width="268" height="84"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="sKL-kF-qeC"/>
@@ -74,15 +82,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Back to menu"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="BackToMenu">
+                                <buttonConfiguration key="configuration" style="plain" title="Back To Menu">
                                     <backgroundConfiguration key="background">
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                     </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                     <color key="baseForegroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="backToMenuTapped:" destination="ZQY-pM-zAG" eventType="touchUpInside" id="2ly-hS-Fjk"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="WinnerScore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axl-5s-eQE" userLabel="winnerScoreLable">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Winner Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axl-5s-eQE" userLabel="winnerScoreLable">
                                 <rect key="frame" x="289" y="112" width="234" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="pvB-dN-Ihs"/>
@@ -96,6 +107,11 @@
                         <viewLayoutGuide key="safeArea" id="Ral-au-MiS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="backToMenuButton" destination="V9x-iz-oJ8" id="FEa-c1-lPT"/>
+                        <outlet property="winnerLabel" destination="hlS-vH-hrD" id="qS7-kZ-Nz5"/>
+                        <outlet property="winnerScoreLabel" destination="axl-5s-eQE" id="ryl-h2-1yB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29w-bT-gO4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -104,17 +120,11 @@
         <!--WarCards-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="WarCards" id="BYZ-38-t0r" customClass="ViewController" customModule="War_Card_Game" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="WarCards" id="BYZ-38-t0r" customClass="WarCardViewController" customModule="War_Card_Game" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fji-sA-leR" userLabel="Player1 Score Label">
-                                <rect key="frame" x="12" y="271" width="65" height="38"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bl4-G4-SlZ" userLabel="Player2 Score Label">
                                 <rect key="frame" x="70" y="44" width="66" height="38"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
@@ -149,6 +159,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="controlButtonTapped:" destination="BYZ-38-t0r" eventType="touchDragInside" id="Myz-Sh-Z8F"/>
+                                    <action selector="controlButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i4A-Sn-Ha7"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ggb-Jd-enQ">
@@ -176,6 +187,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fji-sA-leR" userLabel="Player1 Score Label">
+                                <rect key="frame" x="677" y="44" width="65" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -195,10 +212,12 @@
                     </view>
                     <connections>
                         <outlet property="backToMenuButton" destination="V9x-iz-oJ8" id="rrP-9n-b47"/>
-                        <outlet property="controlButton" destination="6MK-99-dXh" id="pGr-U2-Cta"/>
-                        <outlet property="player1CardImageView" destination="bVM-ZJ-aCo" id="1te-R5-QnK"/>
-                        <outlet property="player1ScoreLabel" destination="Fji-sA-leR" id="LPI-PW-auy"/>
-                        <outlet property="player2CardImageView" destination="fuL-cj-rJu" id="zgy-OJ-Zmq"/>
+                        <outlet property="controlButton" destination="6MK-99-dXh" id="OWu-ah-3rG"/>
+                        <outlet property="player1CardImageView" destination="bVM-ZJ-aCo" id="Ffp-gs-dzm"/>
+                        <outlet property="player1ScoreLabel" destination="Fji-sA-leR" id="sGu-RI-JJp"/>
+                        <outlet property="player2CardImageView" destination="fuL-cj-rJu" id="QcI-Zt-sqJ"/>
+                        <outlet property="player2ScoreLabel" destination="bl4-G4-SlZ" id="LGB-RW-ArQ"/>
+                        <outlet property="timer" destination="Vii-Xk-CNe" id="syy-nL-iHu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
