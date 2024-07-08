@@ -21,10 +21,7 @@ This project is an iOS application written in Swift, featuring a card game. The 
 2. **Open in Xcode**:
     Open `ios-card-game.xcodeproj` or `ios-card-game.xcworkspace` in Xcode.
 
-3. **Install dependencies** (if any):
-    Make sure to install any dependencies using CocoaPods or Swift Package Manager.
-
-4. **Build and Run**:
+3. **Build and Run**:
     Select the target device or simulator and press `Cmd + R` to build and run the project.
 
 ## Usage
