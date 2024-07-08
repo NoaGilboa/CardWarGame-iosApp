@@ -33,7 +33,7 @@ class Ticker {
 
     func start() {
         stop()
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { [weak self] _ in self?.updateState()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] _ in self?.updateState()
         })
         print("Ticker started")
     }

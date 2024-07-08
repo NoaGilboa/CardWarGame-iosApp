@@ -1,0 +1,27 @@
+{
+  "images" : [
+    {
+      "compression-type" : "gpu-optimized-best",
+      "filename" : "background_game.png",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 180,
+          "top" : 179
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "stretch"
+        },
+        "mode" : "3-part-vertical"
+      }
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

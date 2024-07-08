@@ -9,7 +9,7 @@ class WarCardViewController: UIViewController {
     @IBOutlet weak var player1CardImageView: UIImageView!
     @IBOutlet weak var player2CardImageView: UIImageView!
     @IBOutlet weak var controlButton: UIButton!
-    @IBOutlet weak var timerLable: UILabel!
+ 
     @IBOutlet weak var player2NameLabel: UILabel!
     
     // Game manager and ticker for game state management
@@ -34,6 +34,8 @@ class WarCardViewController: UIViewController {
         if let playerName = UserDefaults.standard.string(forKey: "playerName") {
             player2NameLabel.text = playerName
         }
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_game")!)
         
         // Set initial scores
           player1ScoreLabel.text = "0"
@@ -135,9 +137,9 @@ class WarCardViewController: UIViewController {
                  let player1Score = Int(player1ScoreLabel.text!)!
                  let player2Score = Int(player2ScoreLabel.text!)!
                  
-                 if player1Score > player2Score {
+                 if player2Score > player1Score {
                      destinationVC.winnerText = "Winner: \(player2NameLabel.text!)"
-                 } else if player2Score > player1Score {
+                 } else if player1Score > player2Score {
                      destinationVC.winnerText = "Winner: PC"
                  } else {
                      destinationVC.winnerText = "It's a Tie!"

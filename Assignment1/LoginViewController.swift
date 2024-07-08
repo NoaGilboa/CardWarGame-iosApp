@@ -7,7 +7,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var startGameButton: UIButton!
-    
+    var nameComponents = PersonNameComponents()
+    @IBOutlet weak var westImage: UIImageView!
+    @IBOutlet weak var eastImage: UIImageView!
     // Location manager
     let locationManager = CLLocationManager()
     
@@ -28,8 +30,12 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        
-        
+        nameTextField.delegate = self
+        nameTextField.placeholder = "Enter your name"
+        nameTextField.autocorrectionType = .no
+        nameTextField.borderStyle = .line
+        nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
+    
     }
     
     // Action for start game button
@@ -38,10 +44,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
            showAlert(title: "Error", message: "Please enter your name")
            return
        }
-       
        // Save name and proceed with starting the game
-       UserDefaults.standard.set(name, forKey: "playerName")
-       performSegue(withIdentifier: "startGame", sender: self)
+        validate(components: nameComponents)
    }
     
     // Location manager delegate methods
@@ -75,10 +79,13 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         let boundaryLatitude: Double = 34.817549168324334
         if latitude > boundaryLatitude {
             instructionLabel.text = "East Side"
+            westImage.isHidden=true
         } else {
             instructionLabel.text = "West Side"
+            eastImage.isHidden=true
         }
     }
+    
     
     // Helper function to show an alert
     func showAlert(title: String, message: String) {
@@ -87,4 +94,29 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+    @objc func nameTextFieldDidChange() {
+        if let name = nameTextField.text {
+            nameComponents.givenName = name
+        }
+        print(nameComponents.debugDescription)
+    }
+    
+    func validate(components: PersonNameComponents) {
+        guard let name = components.givenName, !name.isEmpty else {
+            showAlert(title: "Error", message: "Please enter your name")
+            return
+        }
+        nameTextField.text = name
+        // Save name and proceed with starting the game
+        UserDefaults.standard.set(name, forKey: "playerName")
+        performSegue(withIdentifier: "startGame", sender: self)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        validate(components: nameComponents)
+        return true
+    }
 }

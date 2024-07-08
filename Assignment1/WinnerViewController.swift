@@ -11,7 +11,8 @@ class WinnerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Set the background image
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_winner")!)
         // Set the text for the winner and score labels
         winnerLabel.text = winnerText
         winnerScoreLabel.text = scoreText
@@ -21,9 +22,6 @@ class WinnerViewController: UIViewController {
     }
     
     @IBAction func backToMenuTapped(_ sender: UIButton) {
-        if let navController = self.navigationController {
-            navController.popToRootViewController(animated: true)
-        } else {
-            self.dismiss(animated: true, completion: nil)
-        }    }
+        performSegue(withIdentifier: "back", sender: self)
+    }
 }

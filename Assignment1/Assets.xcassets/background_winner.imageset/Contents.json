@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "background_winner@2x.png",
+      "idiom" : "universal",
+      "resizing" : {
+        "cap-insets" : {
+          "bottom" : 350,
+          "left" : 499,
+          "right" : 500,
+          "top" : 349
+        },
+        "center" : {
+          "height" : 1,
+          "mode" : "stretch",
+          "width" : 1
+        },
+        "mode" : "9-part"
+      }
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
