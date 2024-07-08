@@ -19,8 +19,19 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         // Set the title of the view controller
         self.title = "Enter Name and Location"
         
-        // Set the instruction text
-        instructionLabel.text = "Please enter your name and allow location access"
+        // Check if a name is already stored
+        if let savedName = UserDefaults.standard.string(forKey: "playerName") {
+            instructionLabel.text = "Hi \(savedName)"
+            nameTextField.isHidden = true
+        } else {
+            // Set the instruction text
+            instructionLabel.text = "Please enter your name and allow location access"
+            nameTextField.delegate = self
+            nameTextField.placeholder = "Enter your name"
+            nameTextField.autocorrectionType = .no
+            nameTextField.borderStyle = .line
+            nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
+        }
         
         // Set up location manager
         locationManager.delegate = self
@@ -29,13 +40,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         // Request location access
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        nameTextField.delegate = self
-        nameTextField.placeholder = "Enter your name"
-        nameTextField.autocorrectionType = .no
-        nameTextField.borderStyle = .line
-        nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
-    
     }
     
     // Action for start game button
@@ -78,10 +82,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     func updateUIBasedOnLocation(latitude: Double) {
         let boundaryLatitude: Double = 34.817549168324334
         if latitude > boundaryLatitude {
-            instructionLabel.text = "East Side"
             westImage.isHidden=true
         } else {
-            instructionLabel.text = "West Side"
             eastImage.isHidden=true
         }
     }
@@ -109,6 +111,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
         nameTextField.text = name
         // Save name and proceed with starting the game
         UserDefaults.standard.set(name, forKey: "playerName")
+         instructionLabel.text = "Hi \(name)"
+         nameTextField.isHidden = true
         performSegue(withIdentifier: "startGame", sender: self)
     }
 }

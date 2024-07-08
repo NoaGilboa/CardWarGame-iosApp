@@ -43,7 +43,7 @@ class GameManager {
     // Function to evaluate the dealt cards and determine the winner
     func evaluateCards() -> (winner: Int, player1Card: String, player2Card: String) {
         let result = dealCards() // Deal cards to the players
-        let winner = compareCards(card1: result.player1Card, card2: result.player2Card) // Compare the dealt cards to determine the winner
+        let winner = compareCards(card1: result.player1Card, card2: result.player2Card)
         return (winner, result.player1Card, result.player2Card) // Return the result
     }
     
