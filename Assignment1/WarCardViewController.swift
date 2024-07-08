@@ -85,13 +85,13 @@ class WarCardViewController: UIViewController {
                 player1CardImageView.image = UIImage(named: result.player1Card)
                 player2CardImageView.image = UIImage(named: result.player2Card)
                 print("State: Flip - player1Card: \(result.player1Card), player2Card: \(result.player2Card)")
-                ticker.updateStateTo(.evaluate)
+                
             case .evaluate:
                 // Evaluate the dealt cards and update scores
                 let result = gameManager.evaluateCards()
                 updateScores(result: result)
                 print("State: Evaluate - winner: \(result.winner)")
-                ticker.updateStateTo(.scoreUpdate)
+                
             case .scoreUpdate:
                 // Reset card images and update round count
                 player1CardImageView.image = UIImage(named: "back")
@@ -100,15 +100,16 @@ class WarCardViewController: UIViewController {
                 player2ScoreLabel.font = UIFont.systemFont(ofSize: 17)
                 roundCount += 1
                 print("State: Score Update - Scores updated, roundCount: \(roundCount)")
-                ticker.updateStateTo(.checkEnd)
+                
             case .checkEnd:
                 if roundCount >= maxRounds {
                     ticker.triggerGameEnd()
                     performSegue(withIdentifier: "showWinner", sender: self)
                 } else {
-                    ticker.updateStateTo(.flip)
+                    ticker.updateStateTo(state.nextState)
                 }
                 print("State: Check End")
+                
             case .gameEnd:
                 print("State: Game End")
             }
