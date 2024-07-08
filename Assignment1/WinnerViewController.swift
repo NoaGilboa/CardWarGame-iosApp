@@ -12,12 +12,15 @@ class WinnerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set the text for the winner and score labels
         winnerLabel.text = winnerText
         winnerScoreLabel.text = scoreText
+        
+        // Set the title for the back to menu button
+        backToMenuButton.setTitle("Back to Menu", for: .normal)
     }
     
     @IBAction func backToMenuTapped(_ sender: UIButton) {
-        // Implement logic to go back to the main menu
         self.dismiss(animated: true, completion: nil)
     }
 }

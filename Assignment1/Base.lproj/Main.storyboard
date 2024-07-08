@@ -216,6 +216,7 @@
                         <outlet property="player1CardImageView" destination="bVM-ZJ-aCo" id="Ffp-gs-dzm"/>
                         <outlet property="player1ScoreLabel" destination="Fji-sA-leR" id="sGu-RI-JJp"/>
                         <outlet property="player2CardImageView" destination="fuL-cj-rJu" id="QcI-Zt-sqJ"/>
+                        <outlet property="player2NameLable" destination="0k6-Sz-Gto" id="Jip-IF-bHq"/>
                         <outlet property="player2ScoreLabel" destination="bl4-G4-SlZ" id="LGB-RW-ArQ"/>
                         <outlet property="timer" destination="Vii-Xk-CNe" id="syy-nL-iHu"/>
                     </connections>

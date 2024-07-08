@@ -32,19 +32,21 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     // Action for start game button
     @IBAction func startGameTapped(_ sender: UIButton) {
         guard let name = nameTextField.text, !name.isEmpty else {
-            showAlert(title: "Error", message: "Please enter your name")
-            return
-        }
-        
-        // Proceed with starting the game
-        print("Name: \(name)")
-    }
+           showAlert(title: "Error", message: "Please enter your name")
+           return
+       }
+       
+       // Save name and proceed with starting the game
+       UserDefaults.standard.set(name, forKey: "playerName")
+       performSegue(withIdentifier: "startGame", sender: self)
+   }
     
     // Location manager delegate methods
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             print("Location: \(location.coordinate.latitude), \(location.coordinate.longitude)")
             locationManager.stopUpdatingLocation()
+            updateUIBasedOnLocation(latitude: location.coordinate.latitude)
         }
     }
     
@@ -62,6 +64,16 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
             print("Location access not determined")
         @unknown default:
             fatalError()
+        }
+    }
+    
+    // Update UI based on the location
+    func updateUIBasedOnLocation(latitude: Double) {
+        let boundaryLatitude: Double = 34.817549168324334
+        if latitude > boundaryLatitude {
+            instructionLabel.text = "East Side"
+        } else {
+            instructionLabel.text = "West Side"
         }
     }
     

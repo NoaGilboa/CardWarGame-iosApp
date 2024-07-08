@@ -9,7 +9,8 @@ class WarCardViewController: UIViewController {
     @IBOutlet weak var player1CardImageView: UIImageView!
     @IBOutlet weak var player2CardImageView: UIImageView!
     @IBOutlet weak var controlButton: UIButton!
-    @IBOutlet weak var timer: UILabel!
+    @IBOutlet weak var timerLable: UILabel!
+    @IBOutlet weak var player2NameLabel: UILabel!
     
     // Game manager and ticker for game state management
     var gameManager: GameManager
@@ -28,6 +29,11 @@ class WarCardViewController: UIViewController {
     // Setup UI and start ticker when the view loads
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Retrieve and set the player name from UserDefaults
+        if let playerName = UserDefaults.standard.string(forKey: "playerName") {
+            player2NameLabel.text = playerName
+        }
         
         // Set initial scores
           player1ScoreLabel.text = "0"
@@ -66,94 +72,94 @@ class WarCardViewController: UIViewController {
     
     
     // Handle state changes in the game
-    func handleStateChange(_ state: Ticker.GameState) {
-        print("Handling state change to: \(state)")
-        switch state {
-            
-        case .initial:
-            // Initial setup if needed
-            break
-            
-        case .flip:
-            // Deal cards and update card images
-            let result = gameManager.dealCards()
-            player1CardImageView.image = UIImage(named: result.player1Card)
-            player2CardImageView.image = UIImage(named: result.player2Card)
-            print("State: Flip - player1Card: \(result.player1Card), player2Card: \(result.player2Card)")
-            
-        case .evaluate:
-            // Evaluate the dealt cards and update scores
-            let result = gameManager.evaluateCards()
-            updateScores(result: result)
-            print("State: Evaluate - winner: \(result.winner)")
-            
-        case .scoreUpdate:
-            // Reset card images and update round count
-            player1CardImageView.image = UIImage(named: "back")
-            player2CardImageView.image = UIImage(named: "back")
-            player1ScoreLabel.font = UIFont.systemFont(ofSize: 17)
-            player2ScoreLabel.font = UIFont.systemFont(ofSize: 17)
-            roundCount += 1
-            print("State: Score Update - Scores updated, roundCount: \(roundCount)")
-            
-        case .checkEnd:
-            if roundCount >= maxRounds {
-                ticker.triggerGameEnd()
-                performSegue(withIdentifier: "showWinner", sender: self)
-            } else {
-                ticker.updateStateTo(state.nextState)
+        func handleStateChange(_ state: Ticker.GameState) {
+            print("Handling state change to: \(state)")
+            switch state {
+                
+            case .initial:
+                // Initial setup if needed
+                break
+                
+            case .flip:
+                // Deal cards and update card images
+                let result = gameManager.dealCards()
+                player1CardImageView.image = UIImage(named: result.player1Card)
+                player2CardImageView.image = UIImage(named: result.player2Card)
+                print("State: Flip - player1Card: \(result.player1Card), player2Card: \(result.player2Card)")
+                
+            case .evaluate:
+                // Evaluate the dealt cards and update scores
+                let result = gameManager.evaluateCards()
+                updateScores(result: result)
+                print("State: Evaluate - winner: \(result.winner)")
+                
+            case .scoreUpdate:
+                // Reset card images and update round count
+                player1CardImageView.image = UIImage(named: "back")
+                player2CardImageView.image = UIImage(named: "back")
+                player1ScoreLabel.font = UIFont.systemFont(ofSize: 17)
+                player2ScoreLabel.font = UIFont.systemFont(ofSize: 17)
+                roundCount += 1
+                print("State: Score Update - Scores updated, roundCount: \(roundCount)")
+                
+            case .checkEnd:
+                if roundCount >= maxRounds {
+                    ticker.triggerGameEnd()
+                    performSegue(withIdentifier: "showWinner", sender: self)
+                } else {
+                    ticker.updateStateTo(state.nextState)
+                }
+                print("State: Check End")
+                
+            case .gameEnd:
+                print("State: Game End")
             }
-            print("State: Check End")
-            
-        case .gameEnd:
-            print("State: Game End")
         }
-    }
-    
-    // Update scores based on the game result
-    func updateScores(result: (winner: Int, player1Card: String, player2Card: String)) {
-        if result.winner == 1 {
-            player1ScoreLabel.text = "\(Int(player1ScoreLabel.text!)! + 1)"
-            player1ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
-            print("Player 1 wins this round")
-        } else if result.winner == 2 {
-            player2ScoreLabel.text = "\(Int(player2ScoreLabel.text!)! + 1)"
-            player2ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
-            print("Player 2 wins this round")
-        } else {
-            print("This round is a draw")
+        
+        // Update scores based on the game result
+        func updateScores(result: (winner: Int, player1Card: String, player2Card: String)) {
+            if result.winner == 1 {
+                player1ScoreLabel.text = "\(Int(player1ScoreLabel.text!)! + 1)"
+                player1ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
+                print("Player 1 wins this round")
+            } else if result.winner == 2 {
+                player2ScoreLabel.text = "\(Int(player2ScoreLabel.text!)! + 1)"
+                player2ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
+                print("Player 2 wins this round")
+            } else {
+                print("This round is a draw")
+            }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "showWinner" {
-             let destinationVC = segue.destination as! WinnerViewController
-             let player1Score = Int(player1ScoreLabel.text!)!
-             let player2Score = Int(player2ScoreLabel.text!)!
-             
-             if player1Score > player2Score {
-                 destinationVC.winnerText = "Winner: Gabi"
-             } else if player2Score > player1Score {
-                 destinationVC.winnerText = "Winner: PC"
-             } else {
-                 destinationVC.winnerText = "It's a Tie!"
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+             if segue.identifier == "showWinner" {
+                 let destinationVC = segue.destination as! WinnerViewController
+                 let player1Score = Int(player1ScoreLabel.text!)!
+                 let player2Score = Int(player2ScoreLabel.text!)!
+                 
+                 if player1Score > player2Score {
+                     destinationVC.winnerText = "Winner: Gabi"
+                 } else if player2Score > player1Score {
+                     destinationVC.winnerText = "Winner: PC"
+                 } else {
+                     destinationVC.winnerText = "It's a Tie!"
+                 }
+                 destinationVC.scoreText = "Score: \(max(player1Score, player2Score))"
              }
-             destinationVC.scoreText = "Score: \(max(player1Score, player2Score))"
          }
-     }
-    
-    func setConstraints() {
-        player1CardImageView.translatesAutoresizingMaskIntoConstraints = false
-        player2CardImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        func setConstraints() {
+            player1CardImageView.translatesAutoresizingMaskIntoConstraints = false
+            player2CardImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            player1CardImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            player1CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            NSLayoutConstraint.activate([
+                player1CardImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+                player1CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
 
-            player2CardImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            player2CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+                player2CardImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+                player2CardImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
 
-            player2CardImageView.leadingAnchor.constraint(equalTo: player1CardImageView.trailingAnchor, constant: 20)
-        ])
+                player2CardImageView.leadingAnchor.constraint(equalTo: player1CardImageView.trailingAnchor, constant: 20)
+            ])
+        }
     }
-}
