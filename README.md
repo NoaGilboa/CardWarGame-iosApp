@@ -50,5 +50,12 @@ The application uses shared preferences to store the user's name and other prefe
 
 ## Vudeo from the app
 
-https://github.com/NoaGilboa/ios-HW1/assets/143444119/8affc2f6-2c4e-402f-a003-1ec3d68339b8
+
+
+https://github.com/user-attachments/assets/a472d069-9d45-46e3-8885-c06c88170592
+
+
+
+https://github.com/user-attachments/assets/891b846b-ea7d-4849-b341-0244d2a4a50f
+
 
