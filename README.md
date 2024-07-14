@@ -15,7 +15,7 @@ This project is an iOS application written in Swift, featuring a card game. The 
 1. **Clone the repository**:
     ```bash
     git clone https://github.com/NoaGilboa/ios-HW1.git
-    cd ios-card-game
+    cd ios-HW1
     ```
 
 2. **Open in Xcode**:
