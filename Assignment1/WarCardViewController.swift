@@ -18,7 +18,8 @@ class WarCardViewController: UIViewController {
     var isRunning: Bool = true
     var roundCount: Int = 0
     let maxRounds = 5
-    
+    var dealtCards: (player1Card: String, player2Card: String)?
+
     // Initializer to create instances of GameManager and Ticker
     required init?(coder: NSCoder) {
         gameManager = GameManager()
@@ -34,9 +35,7 @@ class WarCardViewController: UIViewController {
         if let playerName = UserDefaults.standard.string(forKey: "playerName") {
             player2NameLabel.text = playerName
         }
-        
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_game")!)
-        
+                
         // Set initial scores
           player1ScoreLabel.text = "0"
           player2ScoreLabel.text = "0"
@@ -81,21 +80,23 @@ class WarCardViewController: UIViewController {
                 
             case .flip:
                 // Deal cards and update card images
-                let result = gameManager.dealCards()
-                player1CardImageView.image = UIImage(named: result.player1Card)
-                player2CardImageView.image = UIImage(named: result.player2Card)
+                dealtCards = gameManager.dealCards()
+                guard let result = dealtCards else { return }
+                self.player1CardImageView.image = UIImage(named: result.player1Card)
+                self.player2CardImageView.image = UIImage(named: result.player2Card)
                 print("State: Flip - player1Card: \(result.player1Card), player2Card: \(result.player2Card)")
                 
             case .evaluate:
                 // Evaluate the dealt cards and update scores
-                let result = gameManager.evaluateCards()
-                updateScores(result: result)
-                print("State: Evaluate - winner: \(result.winner)")
-                
+                guard let result = dealtCards else { return }
+                let winner = gameManager.compareCards(card1: result.player1Card, card2: result.player2Card)
+                updateScores(winner: winner)
+                print("State: Evaluate - winner: \(winner)")
+
             case .scoreUpdate:
                 // Reset card images and update round count
-                player1CardImageView.image = UIImage(named: "back")
-                player2CardImageView.image = UIImage(named: "back")
+                self.player1CardImageView.image = UIImage(named: "back")
+                self.player2CardImageView.image = UIImage(named: "back")
                 player1ScoreLabel.font = UIFont.systemFont(ofSize: 17)
                 player2ScoreLabel.font = UIFont.systemFont(ofSize: 17)
                 roundCount += 1
@@ -105,9 +106,7 @@ class WarCardViewController: UIViewController {
                 if roundCount >= maxRounds {
                     ticker.triggerGameEnd()
                     performSegue(withIdentifier: "showWinner", sender: self)
-                } else {
-                    ticker.updateStateTo(state.nextState)
-                }
+                } 
                 print("State: Check End")
                 
             case .gameEnd:
@@ -116,12 +115,12 @@ class WarCardViewController: UIViewController {
         }
         
         // Update scores based on the game result
-        func updateScores(result: (winner: Int, player1Card: String, player2Card: String)) {
-            if result.winner == 1 {
+        func updateScores(winner: Int) {
+            if winner == 1 {
                 player1ScoreLabel.text = "\(Int(player1ScoreLabel.text!)! + 1)"
                 player1ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
                 print("Player 1 wins this round")
-            } else if result.winner == 2 {
+            } else if winner == 2 {
                 player2ScoreLabel.text = "\(Int(player2ScoreLabel.text!)! + 1)"
                 player2ScoreLabel.font = UIFont.boldSystemFont(ofSize: 24)
                 print("Player 2 wins this round")

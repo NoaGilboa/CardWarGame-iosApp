@@ -11,8 +11,6 @@ class WinnerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set the background image
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_winner")!)
         // Set the text for the winner and score labels
         winnerLabel.text = winnerText
         winnerScoreLabel.text = scoreText

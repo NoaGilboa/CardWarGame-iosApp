@@ -40,21 +40,15 @@ class GameManager {
         return (player1Card, player2Card) // Return the dealt cards
     }
     
-    // Function to evaluate the dealt cards and determine the winner
-    func evaluateCards() -> (winner: Int, player1Card: String, player2Card: String) {
-        let result = dealCards() // Deal cards to the players
-        let winner = compareCards(card1: result.player1Card, card2: result.player2Card)
-        return (winner, result.player1Card, result.player2Card) // Return the result
-    }
-    
     // Function to compare the ranks of two cards
     func compareCards(card1: String, card2: String) -> Int {
         // Dictionary to map card ranks to their respective values
         let cardRank = ["2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "11": 11, "12": 12, "13": 13, "A": 14]
         // Extract the rank of each card
-        let rank1 = cardRank[String(card1.split(separator: "_")[0])]!
-        let rank2 = cardRank[String(card2.split(separator: "_")[0])]!
-        
+        let rank1 = cardRank[String(card1.components(separatedBy: "_").first!)]!
+        let rank2 = cardRank[String(card2.components(separatedBy: "_").first!)]!
+
+        print("rank1: " , rank1 , ", rank2: " , rank2)
         // Compare the ranks and return the winner
         if rank1 > rank2 {
             return 1 // Player 1 wins
