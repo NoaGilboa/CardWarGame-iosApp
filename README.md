@@ -19,7 +19,7 @@ This project is an iOS application written in Swift, featuring a card game. The 
     ```
 
 2. **Open in Xcode**:
-    Open `ios-card-game.xcodeproj` or `ios-card-game.xcworkspace` in Xcode.
+    Open `ios-HW1.xcodeproj` or `ios-HW1.xcworkspace` in Xcode.
 
 3. **Build and Run**:
     Select the target device or simulator and press `Cmd + R` to build and run the project.
