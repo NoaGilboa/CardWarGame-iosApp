@@ -31,6 +31,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
             nameTextField.autocorrectionType = .no
             nameTextField.borderStyle = .line
             nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange), for: .editingChanged)
+            startGameButton.isHidden=true
         }
         
         // Set up location manager
@@ -97,22 +98,25 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func nameTextFieldDidChange() {
-        if let name = nameTextField.text {
-            nameComponents.givenName = name
+            if let name = nameTextField.text, !name.isEmpty {
+                nameComponents.givenName = name
+                startGameButton.isHidden = false
+                UserDefaults.standard.set(name, forKey: "playerName")
+            } else {
+                startGameButton.isHidden = true
+            }
         }
-        print(nameComponents.debugDescription)
-    }
     
     func validate(components: PersonNameComponents) {
         guard let name = components.givenName, !name.isEmpty else {
             showAlert(title: "Error", message: "Please enter your name")
             return
         }
-        nameTextField.text = name
         // Save name and proceed with starting the game
         UserDefaults.standard.set(name, forKey: "playerName")
-         instructionLabel.text = "Hi \(name)"
-         nameTextField.isHidden = true
+        instructionLabel.text = "Hi \(name)"
+        nameTextField.isHidden = true
+        startGameButton.isHidden = true
         performSegue(withIdentifier: "startGame", sender: self)
     }
 }
@@ -120,7 +124,10 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate {
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        validate(components: nameComponents)
+        if let name = textField.text, !name.isEmpty {
+            nameComponents.givenName = name
+            validate(components: nameComponents)
+        }
         return true
     }
 }
