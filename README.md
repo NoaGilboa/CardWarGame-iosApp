@@ -50,12 +50,8 @@ The application uses shared preferences to store the user's name and other prefe
 
 ## Vudeo from the app
 
+https://github.com/user-attachments/assets/48870067-1239-4bfe-94b6-d90fdd6be9d3
 
 
-https://github.com/user-attachments/assets/a472d069-9d45-46e3-8885-c06c88170592
-
-
-
-https://github.com/user-attachments/assets/891b846b-ea7d-4849-b341-0244d2a4a50f
 
 
